@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>간단 타이머</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 60px; }
+    .timer { font-size: 2rem; margin: 20px 0; }
+    button { font-size: 1rem; margin: 0 5px; padding: 8px 16px; }
+  </style>
+</head>
+<body>
+  <h2>간단 타이머</h2>
+  <div class="timer" id="timer">0.00초</div>
+  <button onclick="start()">시작</button>
+  <button onclick="pause()">일시정지</button>
+  <button onclick="reset()">리셋</button>
+  <script>
+    let seconds = 0;
+    let interval = null;
+    function update() {
+      document.getElementById('timer').textContent = seconds.toFixed(2) + '초';
+    }
+    function start() {
+      if (interval) return;
+      interval = setInterval(() => {
+        seconds = Math.round((seconds + 0.01) * 100) / 100;
+        update();
+      }, 10);
+    }
+    function pause() {
+      clearInterval(interval);
+      interval = null;
+    }
+    function reset() {
+      pause();
+      seconds = 0;
+      update();
+    }
+    update();
+  </script>
+</body>
+</html>
